@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+//test
 typedef struct Node
 {
     char name[20];//ĞÕÃû
