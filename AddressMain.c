@@ -1,19 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//test
 typedef struct Node
 {
-    char name[20];//ÐÕÃû
-    char sex[20];//ÐÔ±ð
-    char phone[20];//ÊÖ»úºÅ
-    char address[20];//×¡Ö·
+    char name[20];//å§“å
+    char sex[20];//æ€§åˆ«
+    char phone[20];//æ‰‹æœºå·
+    char address[20];//ä½å€
     struct Node* next;
 }aNode,*LiAddress;
 
-LiAddress head = NULL;//Í·Ö¸Õë
+LiAddress head = NULL;//å¤´æŒ‡é’ˆ
 
-/*******º¯ÊýÉùÃ÷*******/
+/*******å‡½æ•°å£°æ˜Ž*******/
 void menu();
 int choice();
 void Create();
@@ -25,75 +24,76 @@ void Query();
 void Display();
 void Save();
 void Load();
-/*******º¯ÊýÉùÃ÷*******/
+void show(aNode *p);
+/*******å‡½æ•°å£°æ˜Ž*******/
 int main()
 {
-    menu();                 //²Ëµ¥
+    menu();                 //èœå•
     while(1)
     {
-        switch (choice())   //Ñ¡Ôñ
+        switch (choice())   //é€‰æ‹©
         {
-        case 1:Create();    //´´½¨
+        case 1:Create();    //åˆ›å»º
             break;
-//        case 2:Add();       //Ìí¼Ó@@@
+//        case 2:Add();       //æ·»åŠ @@@
 //            break;
-//        case 3:Del();       //É¾³ý(°´ÐÕÃûÉ¾³ý¡¢°´ÊÖ»úºÅÉ¾³ý¡¢Çå¿Õ)@@
-//            break;
-//        case 4:Modify();    //ÐÞ¸Ä@
-//            break;
-//        case 5:Sort();      //ÅÅÐò
-//            break;
-//        case 6:Query();     //²éÑ¯(°´ÐÕÃû²éÑ¯¡¢°´ÊÖ»úºÅ²éÑ¯)@
-//            break;
-//        case 7:Display();   //ÏÔÊ¾@@
-//            break;
-        case 8:Save();      //±£´æ
+        case 3:Del();       //åˆ é™¤(æŒ‰å§“ååˆ é™¤ã€æŒ‰æ‰‹æœºå·åˆ é™¤ã€æ¸…ç©º)@@
             break;
-        case 9:Load();      //´ò¿ª
+//        case 4:Modify();    //ä¿®æ”¹@
+//            break;
+//        case 5:Sort();      //æŽ’åº
+//            break;
+//        case 6:Query();     //æŸ¥è¯¢(æŒ‰å§“åæŸ¥è¯¢ã€æŒ‰æ‰‹æœºå·æŸ¥è¯¢)@
+//            break;
+        case 7:Display();   //æ˜¾ç¤º@@
             break;
-        case 10:exit(0);    //ÍË³ö
+        case 8:Save();      //ä¿å­˜
+            break;
+        case 9:Load();      //æ‰“å¼€
+            break;
+        case 10:exit(0);    //é€€å‡º
         }
     }
 }
-/***********º¯Êý¶¨Òå************/
+/***********å‡½æ•°å®šä¹‰************/
 void menu()
 {
-    printf("¡ª¡ª»¶Ó­Ê¹ÓÃÍ¨Ñ¶Â¼¹ÜÀíÏµÍ³¡ª¡ª\n");
-    printf("1.´´½¨Í¨Ñ¶Â¼\t2.Ìí¼ÓÁªÏµÈË¡ª\n");
-    printf("3.É¾³ýÁªÏµÈË\t4.ÐÞ¸ÄÁªÏµÈË¡ª\n");
-    printf("5.Í¨Ñ¶Â¼ÅÅÐò\t6.²éÑ¯ÁªÏµÈË¡ª\n");
-    printf("7.ÏÔÊ¾ÁªÏµÈË\t8.±£´æÍ¨Ñ¶Â¼¡ª\n");
-    printf("9.¶ÁÈ¡Í¨Ñ¶Â¼\t10.ÍË³öÏµÍ³ ¡ª\n");
-    printf("¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª\n");
+    printf("â€”â€”æ¬¢è¿Žä½¿ç”¨é€šè®¯å½•ç®¡ç†ç³»ç»Ÿâ€”â€”\n");
+    printf("1.åˆ›å»ºé€šè®¯å½•\t2.æ·»åŠ è”ç³»äººâ€”\n");
+    printf("3.åˆ é™¤è”ç³»äºº\t4.ä¿®æ”¹è”ç³»äººâ€”\n");
+    printf("5.é€šè®¯å½•æŽ’åº\t6.æŸ¥è¯¢è”ç³»äººâ€”\n");
+    printf("7.æ˜¾ç¤ºè”ç³»äºº\t8.ä¿å­˜é€šè®¯å½•â€”\n");
+    printf("9.è¯»å–é€šè®¯å½•\t10.é€€å‡ºç³»ç»Ÿ â€”\n");
+    printf("â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\n");
 }
 int choice()
 {
     int choice;
-    printf("ÇëÑ¡Ôñ¹¦ÄÜÄ£¿é£º");
+    printf("\nè¯·é€‰æ‹©åŠŸèƒ½æ¨¡å—ï¼š");
     while(1)
     {
         scanf("%d",&choice);
         if(choice>=1&&choice<=10)
             break;
         else
-            printf("ÊäÈëÊý×Ö²»ÕýÈ·£¬ÇëÖØÐÂÊäÈë£º");
+            printf("è¾“å…¥æ•°å­—ä¸æ­£ç¡®ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š");
     }
-    return  choice;
+    return choice;
 }
-
 void Create()
 {
+    head = NULL;
     aNode *New,*rear;
-    printf("\nËµÃ÷:µ±ÊäÈëÐÕÃûÎª0Ê±ÊäÈë½áÊø\n\n");
+    printf("\nè¯´æ˜Ž:å½“è¾“å…¥å§“åä¸º0æ—¶è¾“å…¥ç»“æŸ\n\n");
     while(1)
     {
         New=(aNode *)malloc(sizeof(aNode));
 
-        /*********ÊäÈëÑ§ÉúÐÅÏ¢*********/
-        printf("ÊäÈëÐÕÃû:");
+        /*********è¾“å…¥å­¦ç”Ÿä¿¡æ¯*********/
+        printf("è¾“å…¥å§“å:");
         scanf("%s",New->name);
 
-        //ÍË³öÑ­»·
+        //é€€å‡ºå¾ªçŽ¯
         if(strcmp(New->name,"0")==0)
         {
             printf("\n");
@@ -101,49 +101,50 @@ void Create()
             break;
         }
 
-        printf("ÊäÈëÐÔ±ð:");
+        printf("è¾“å…¥æ€§åˆ«:");
         scanf("%s",New->sex);
-        printf("ÊäÈëÊÖ»úºÅ:");
+        printf("è¾“å…¥æ‰‹æœºå·:");
         scanf("%s",New->phone);
-        printf("ÊäÈë×¡Ö·:");
+        printf("è¾“å…¥ä½å€:");
         scanf("%s",New->address);
         New->next=NULL;
-        /*********ÊäÈëÑ§ÉúÐÅÏ¢*********/
+        /*********è¾“å…¥å­¦ç”Ÿä¿¡æ¯*********/
 
         if(head == NULL)
             head = rear = New;
         else
+        {
             rear->next = New;
+            rear = rear->next;
+        }
         printf("\n");
     }
-    printf("Í¨Ñ¶Â¼´´½¨³É¹¦\n");
+    printf("é€šè®¯å½•åˆ›å»ºæˆåŠŸ\n");
 }
-
 void Save()
 {
     FILE *fp;
     LiAddress p = head;
-    if((fp=fopen("C:\\Users\\Administrator\\Desktop\\Address book.txt","a"))==NULL)
+    if((fp=fopen("C:\\Users\\Administrator\\Desktop\\Address book.txt","w"))==NULL)
     {
-        printf("Í¨Ñ¶Â¼±£´æÊ§°Ü£¡\n");
+        printf("é€šè®¯å½•ä¿å­˜å¤±è´¥ï¼\n");
         return;
     }
-    while(p!=NULL)
+    while(p != NULL)
     {
         fprintf(fp,"%s %s %s %s\n",p->name,p->sex,p->phone,p->address);
-        p=p->next;
+        p = p->next;
     }
-    printf("\nÍ¨Ñ¶Â¼±£´æ³É¹¦£¡\n\n");
+    printf("\né€šè®¯å½•ä¿å­˜æˆåŠŸï¼\n");
     fclose(fp);
 }
-
 void Load()
 {
     FILE *fp;
     aNode *New,*p = head;
     if((fp=fopen("C:\\Users\\Administrator\\Desktop\\Address book.txt","r"))==NULL)
     {
-        printf("Í¨Ñ¶Â¼¶ÁÈ¡Ê§°Ü£¡\n");
+        printf("é€šè®¯å½•è¯»å–å¤±è´¥ï¼\n");
         return;
     }
     while(1)
@@ -169,8 +170,106 @@ void Load()
             break;
         }
     }
-    printf("\nÍ¨Ñ¶Â¼¶ÁÈ¡³É¹¦£¡\n\n");
+    printf("\né€šè®¯å½•è¯»å–æˆåŠŸï¼\n");
     fclose(fp);
 }
+void Del() //åˆ é™¤
+{
+    if(head == NULL){
+        printf("\né€šè®¯å½•ä¸ºç©ºï¼\n");
+        return;
+    }
+    printf("â€”â€”â€”â€”è¯·é€‰æ‹©åˆ é™¤æ–¹å¼â€”â€”â€”â€”\n");
+    printf("1.æŒ‰åå­—åˆ é™¤\t2.æŒ‰å·ç åˆ é™¤â€”\n");
+    printf("3.æ¸…ç©ºé€šè®¯å½•\t4.å–æ¶ˆ      â€”\n");
+    printf("â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\n");
+    printf("è¯·é€‰æ‹©ï¼š");
+    int choice;
+    char str[20];
+    scanf("%d",&choice);
+    if(choice == 1){
+        printf("è¯·è¾“å…¥è”ç³»äººå§“åï¼š");
+        scanf("%s",str);
+    }else if(choice == 2){
+        printf("è¯·è¾“å…¥è”ç³»äººå·ç ï¼š");
+        scanf("%s",str);
+    }else if(choice == 3){
+        aNode *p = head,*p1;
+        while(p != NULL)
+        {
+            p1 = p;
+            p = p->next;
+            free(p1);
+        }
+        head = NULL;
+        printf("\né€šè®¯å½•æ¸…é™¤æˆåŠŸï¼\n");
+        return;
+    }else{return;}
+/******************åˆ é™¤æ“ä½œ******************/
+    aNode *p = head,*p1;
+    while((strcmp(p->name,str)!=0)&&(strcmp(p->phone,str)!=0))
+    {
+        p1 = p;
+        p = p->next;
+        if(p == NULL)
+        {
+            break;
+        }
+    }
+    if(p == head)//åˆ é™¤çš„æ˜¯å¤´ç»“ç‚¹
+    {
+        show(p);
+        printf("ç¡®è®¤è¦åˆ é™¤å—ï¼Ÿ(Y/N)ï¼š");
+        char ch = getche();
+        printf("\n");
+        if(ch=='Y'||ch=='y')
+        {
+            head = head->next;
+            free(p);
+            printf("åˆ é™¤æˆåŠŸï¼\n");
+        }
+    }
+    else if(p == NULL)//æœªæ‰¾åˆ°è”ç³»äºº
+    {
+        printf("æœªæ‰¾åˆ°è¯¥è”ç³»äººï¼\n");
+    }
+    else//æ‰¾åˆ°è”ç³»äºº
+    {
+        show(p);
+        printf("ç¡®è®¤è¦åˆ é™¤å—ï¼Ÿ(Y/N)ï¼š");
+        char ch = getche();
+        printf("\n");
+        if(ch=='Y'||ch=='y')
+        {
+            p1->next = p->next;
+            free(p);
+            printf("åˆ é™¤æˆåŠŸï¼\n");
+        }
+    }
+}
+void Display()//å±•ç¤º
+{
+    if(head == NULL)
+    {
+        printf("é€šè®¯å½•ä¸ºç©ºï¼\n");
+        return;
+    }
 
+    LiAddress p = head;
+    printf("â€”â€”â€”â€”â€”â€”â€”è”ç³»äººä¿¡æ¯å¦‚ä¸‹â€”â€”â€”â€”â€”â€”â€”\n");
+    printf("â€”å§“å\tæ€§åˆ«\tç”µè¯å·ç \tåœ°å€\n");
+    while(p!=NULL)
+    {
+        printf("â€”%s\t%s\t%s\t%s\n",p->name,p->sex,p->phone,p->address);
+        p = p->next;
+    }
+    printf("â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\n");
+}
 
+void show(aNode *p)
+{
+    printf("â€”â€”â€”â€”â€”â€”è¯¥è”ç³»äººä¿¡æ¯å¦‚ä¸‹â€”â€”â€”â€”â€”â€”â€”\n");
+    printf("â€”å§“å\tæ€§åˆ«\tç”µè¯å·ç \tåœ°å€\n");
+    printf("â€”%s\t%s\t%s\t%s\n",p->name,p->sex,p->phone,p->address);
+    printf("â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\n");
+}
