@@ -239,7 +239,7 @@ void Del() //删除
     if(head == NULL){
         printf("\n通讯录为空！\n");
         return;
-    }
+    } //判空
     aNode *p = head,*p1;
     printf("————请选择删除方式————\n");
     printf("1.按名字删除\t2.按号码删除—\n");
@@ -248,7 +248,7 @@ void Del() //删除
     int n = choice(4);
     char str[20];
     if(n == 1){
-        printf("请输入联系人姓名：");
+        printf("请输入联系人姓名：");//按姓名删除
         scanf("%s",str);
         while(strcmp(p->name,str)!=0)
         {
@@ -260,7 +260,7 @@ void Del() //删除
             }
         }
     }else if(n == 2){
-        printf("请输入联系人号码：");
+        printf("请输入联系人号码：");//按号码删除
         scanf("%s",str);
         while(strcmp(p->phone,str)!=0)
         {
@@ -271,12 +271,13 @@ void Del() //删除
                 break;
             }
         }
-    }else if(n == 3){
+    }else if(n == 3)// 清空通讯录
+     {
         aNode *p = head,*p1;
         while(p != NULL)
         {
-            p1 = p;
-            p = p->next;
+            p1 = p;//p1相当于工作指针
+            p = p->next;//循环访问下一节点，直到访问全部节点
             free(p1);
         }
         head = NULL;
@@ -286,13 +287,14 @@ void Del() //删除
 /******************删除操作******************/  
     if(p == head)//删除的是头结点
     {
-        show(p);
+        show(p);  //展示确认
         printf("确认要删除吗？(Y/N)：");
         char ch = getche();
         printf("\n");
         if(ch=='Y'||ch=='y')
+            
         {
-            head = head->next;
+            head = head->next;//重新定义一个头节点
             free(p);
             printf("删除成功！\n");
         }
@@ -303,7 +305,7 @@ void Del() //删除
     }
     else//找到联系人
     {
-        show(p);
+        show(p);//展示确认
         printf("确认要删除吗？(Y/N)：");
         char ch = getche();
         printf("\n");
@@ -318,13 +320,13 @@ void Del() //删除
 
 void Display()//展示
 {
-    if(head == NULL)
+    if(head == NULL)//判断通讯录是否为空
     {
         printf("\n通讯录为空！\n");
         return;
     }
 
-    LiAddress p = head;
+    LiAddress p = head;//p为工作指针
     printf("————————通讯录信息如下—————————\n");
     char *m[] = {"姓名","性别","电话号码","地址"};
     printf("—%-7s%-7s%-15s%-15s—\n",*m,*(m+1),*(m+2),*(m+3));
@@ -332,7 +334,7 @@ void Display()//展示
     {
         printf("—%-7s%-7s%-15s%-15s—\n",p->name,p->sex,p->phone,p->address);
         p = p->next;
-    }
+    }//循环打印所有节点包含的信息
     printf("————————————————————————\n");
 }
 
