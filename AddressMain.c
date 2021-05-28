@@ -262,10 +262,10 @@ void Del() //删除
     }else if(n == 2){
         printf("请输入联系人号码：");//按号码删除
         scanf("%s",str);
-        while(strcmp(p->phone,str)!=0)
+        while(strcmp(p->phone,str)!=0)//比较
         {
-            p1 = p;
-            p = p->next;
+            p1 = p;//p1相当于工作指针
+            p = p->next;//循环访问下一节点，直到访问全部节点
             if(p == NULL)
             {
                 break;
@@ -311,7 +311,7 @@ void Del() //删除
         printf("\n");
         if(ch=='Y'||ch=='y')
         {
-            p1->next = p->next;
+            p1->next = p->next;//删除p节点
             free(p);
             printf("删除成功！\n");
         }
