@@ -338,7 +338,7 @@ void Display()//展示
 
 void Query()
 {
-    if(head == NULL)
+    if(head == NULL)   //判断通讯录是否为空
     {
          printf("\n通讯录为空！\n");
         return;
@@ -347,10 +347,10 @@ void Query()
     char str[20];
     scanf("%s",str);
     LiAddress  p = head;
-    while((strcmp(p->name,str)!=0)&&(strcmp(p->phone,str)!=0))
+    while((strcmp(p->name,str)!=0)&&(strcmp(p->phone,str)!=0))	//对链表实行遍历
     {
         p = p->next;
-        if(p == NULL)
+        if(p == NULL)			//遍历结束且未找到要查找的联系人
         {
             printf("未找到该联系人！\n");
             return;
@@ -361,7 +361,7 @@ void Query()
 
 void Modify()
 {
-    if(head == NULL)
+    if(head == NULL)		//判断通讯录是否为空
     {
          printf("通讯录为空！\n");
         return;
@@ -370,7 +370,7 @@ void Modify()
     char str[20];
     scanf("%s",str);
     LiAddress p=head;
-    while(strcmp(str,p->name)!=0&&strcmp(str,p->phone)!=0)
+    while(strcmp(str,p->name)!=0&&strcmp(str,p->phone)!=0)		//对链表实行遍历
     {
         p=p->next;
         if(p==NULL) break;
@@ -385,7 +385,7 @@ void Modify()
     printf("1.姓名\t2.性别\t3.号码\t4.住址—\n");
     printf("————————————————\n");
     int i = choice(4);
-    switch (i)
+    switch (i)				//修改联系人信息
     {
     case 1:
         printf("名字修改为:");
