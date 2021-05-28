@@ -3,20 +3,23 @@
 #include <conio.h>
 #include <string.h>
 
+#define Password "root" //管理员密码
+
 typedef struct Node
 {
-    char name[20];//姓名
-    char sex[20];//性别
-    char phone[20];//手机号
-    char address[20];//住址
+    char name[20];      //姓名
+    char sex[20];       //性别
+    char phone[20];     //手机号
+    char address[20];   //住址
     struct Node* next;
 }aNode,*LiAddress;
 
-LiAddress head = NULL;//头指针
+LiAddress head = NULL;  //头指针
 
 /*******函数声明*******/
-void menu();
-int choice();
+void menu_admin();
+void menu_users();
+int  choice(int max);
 void Create();
 void Add();
 void Del();
@@ -32,37 +35,32 @@ void swap(aNode *p,aNode *p1);  //交换p,p1的信息,用于排序
 /*******函数声明*******/
 int main()
 {
-    menu();                 //菜单
-    while(1)
+    printf("欢迎使用通讯录管理系统！\n");
+    printf("请选择登录身份(1.用户 2.管理员)");
+    if(choice(2) == 1)
+        menu_users();
+    else
     {
-        switch (choice())   //选择
+        char p[20];
+        printf("请输入管理员密码：");
+        scanf("%s",p);
+        if(strcmp(p,Password) != 0)
         {
-        case 1:Create();    //创建
-            break;
-        case 2:Add();       //添加
-            break;
-        case 3:Del();       //删除(按姓名删除、按手机号删除、清空)
-            break;
-        case 4:Modify();    //修改
-            break;
-        case 5:Sort();      //排序
-            break;
-        case 6:Query();     //查询(按姓名查询、按手机号查询)@
-            break;
-        case 7:Display();   //显示
-            break;
-        case 8:Save();      //保存
-            break;
-        case 9:Load();      //打开
-            break;
-        case 10:            //退出
-            printf("\n感谢您的使用！\n");
-            exit(0);
+            while(1)
+            {
+                printf("密码错误，请重新输入(输入0退出)：");
+                scanf("%s",p);
+                if(strcmp(p,"0") == 0)
+                    exit(0);
+                if(strcmp(p,Password) == 0)
+                    break;
+            }
         }
+        menu_admin();
     }
 }
 /***********函数定义************/
-void menu()
+void menu_admin()
 {
     printf("——欢迎使用通讯录管理系统——\n");
     printf("1.创建通讯录\t2.添加联系人—\n");
@@ -71,16 +69,68 @@ void menu()
     printf("7.显示联系人\t8.保存通讯录—\n");
     printf("9.读取通讯录\t10.退出系统 —\n");
     printf("———————————————\n");
+    while(1)
+    {
+        switch (choice(10))   //选择
+        {
+        case 1:Create();    //创建
+            break;
+        case 2:Add();       //添加
+            break;
+        case 3:Del();       //删除
+            break;
+        case 4:Modify();    //修改
+            break;
+        case 5:Sort();      //排序
+            break;
+        case 6:Query();     //查询
+            break;
+        case 7:Display();   //显示
+            break;
+        case 8:Save();      //保存
+            break;
+        case 9:Load();      //读取
+            break;
+        case 10:            //退出
+            printf("\n感谢您的使用！\n");
+            exit(0);
+        }
+    }
 }
-
-int choice()
+void menu_users()
+{
+    printf("——欢迎使用通讯录管理系统——\n");
+    printf("1.显示联系人\t2.查询联系人—\n");
+    printf("3.通讯录排序\t4.退出系统  —\n");
+    printf("———————————————\n");
+    Load();
+    while(1)
+    {
+        switch (choice(4))  //选择
+        {
+        case 1:Display();   //显示
+            break;
+        case 2:Query();     //查询
+            break;
+        case 3:Sort();      //排序
+            break;
+        case 4:             //退出
+            printf("\n感谢您的使用！\n");
+            exit(0);
+        }
+    }
+}
+int choice(int max)
 {
     int choice;
-    printf("\n请选择功能模块：");
+    if(max == 10)
+        printf("\n请选择功能模块：");
+    else
+        printf("\n请选择：");
     while(1)
     {
         scanf("%d",&choice);
-        if(choice>=1&&choice<=10)
+        if(choice>=1&&choice<=max)
             break;
         else
             printf("输入数字不正确，请重新输入：");
@@ -195,11 +245,9 @@ void Del() //删除
     printf("1.按名字删除\t2.按号码删除—\n");
     printf("3.清空通讯录\t4.取消      —\n");
     printf("———————————————\n");
-    printf("请选择：");
-    int choice;
+    int n = choice(4);
     char str[20];
-    scanf("%d",&choice);
-    if(choice == 1){
+    if(n == 1){
         printf("请输入联系人姓名：");
         scanf("%s",str);
         while(strcmp(p->name,str)!=0)
@@ -211,7 +259,7 @@ void Del() //删除
                 break;
             }
         }
-    }else if(choice == 2){
+    }else if(n == 2){
         printf("请输入联系人号码：");
         scanf("%s",str);
         while(strcmp(p->phone,str)!=0)
@@ -223,7 +271,7 @@ void Del() //删除
                 break;
             }
         }
-    }else if(choice == 3){
+    }else if(n == 3){
         aNode *p = head,*p1;
         while(p != NULL)
         {
@@ -333,12 +381,10 @@ void Modify()
         return;
     }
     else show(p);
-    int i;
     printf("————选择要修改的信息————\n");
     printf("1.姓名\t2.性别\t3.号码\t4.住址—\n");
     printf("————————————————\n");
-    printf("请选择：");
-    scanf("%d",&i);
+    int i = choice(4);
     switch (i)
     {
     case 1:
@@ -386,7 +432,7 @@ void Add()
             break;
         }
         rear = head;
-        while(rear != NULL)         //检验通讯录是否已有此人
+        while(rear != NULL)			//检验通讯录是否已有此人
         {
             if (strcmp(Add->name,rear->name) == 0)
             {
@@ -429,10 +475,8 @@ void Sort()
     printf("————请选择删除方式————\n");
     printf("1.按名字排序\t2.按号码排序—\n");
     printf("———————————————\n");
-    printf("请选择：");
-    int choice;
-    scanf("%d",&choice);
-    if(choice == 1)
+    int n = choice(2);
+    if(n     == 1)
     {
         for (int i = 0; i < count; i++)
         {
