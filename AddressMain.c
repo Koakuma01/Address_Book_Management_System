@@ -2,7 +2,10 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <string.h>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 44799f580fb70af678aa754dd5cd50bf8c20883f
 typedef struct Node
 {
     char name[20];//姓名
@@ -26,9 +29,13 @@ void Query();
 void Display();
 void Save();
 void Load();
+<<<<<<< HEAD
 
 void show(aNode *p);            //显示p所指结点的信息
 void swap(aNode *p,aNode *p1);  //交换p,p1的信息,用于排序
+=======
+void show(aNode *p);
+>>>>>>> 44799f580fb70af678aa754dd5cd50bf8c20883f
 /*******函数声明*******/
 int main()
 {
@@ -38,6 +45,7 @@ int main()
         switch (choice())   //选择
         {
         case 1:Create();    //创建
+<<<<<<< HEAD
             break;
         case 2:Add();       //添加
             break;
@@ -58,6 +66,26 @@ int main()
         case 10:            //退出
             printf("\n感谢您的使用！\n");
             exit(0);
+=======
+            break;
+//        case 2:Add();       //添加@@@
+//            break;
+        case 3:Del();       //删除(按姓名删除、按手机号删除、清空)@@
+            break;
+//        case 4:Modify();    //修改@
+//            break;
+//        case 5:Sort();      //排序
+//            break;
+//        case 6:Query();     //查询(按姓名查询、按手机号查询)@
+//            break;
+        case 7:Display();   //显示@@
+            break;
+        case 8:Save();      //保存
+            break;
+        case 9:Load();      //打开
+            break;
+        case 10:exit(0);    //退出
+>>>>>>> 44799f580fb70af678aa754dd5cd50bf8c20883f
         }
     }
 }
@@ -87,7 +115,6 @@ int choice()
     }
     return choice;
 }
-
 void Create()
 {
     head = NULL;
@@ -129,14 +156,17 @@ void Create()
     }
     printf("通讯录创建成功\n");
 }
-
 void Save()
 {
     FILE *fp;
     LiAddress p = head;
     if((fp=fopen("C:\\Users\\Administrator\\Desktop\\Address book.txt","w"))==NULL)
     {
+<<<<<<< HEAD
         printf("\n通讯录保存失败！\n");
+=======
+        printf("通讯录保存失败！\n");
+>>>>>>> 44799f580fb70af678aa754dd5cd50bf8c20883f
         return;
     }
     while(p != NULL)
@@ -147,14 +177,17 @@ void Save()
     printf("\n通讯录保存成功！\n");
     fclose(fp);
 }
-
 void Load()
 {
     FILE *fp;
     aNode *New,*p = head;
     if((fp=fopen("C:\\Users\\Administrator\\Desktop\\Address book.txt","r"))==NULL)
     {
+<<<<<<< HEAD
         printf("\n通讯录读取失败！\n");
+=======
+        printf("通讯录读取失败！\n");
+>>>>>>> 44799f580fb70af678aa754dd5cd50bf8c20883f
         return;
     }
     while(1)
@@ -183,7 +216,89 @@ void Load()
     printf("\n通讯录读取成功！\n");
     fclose(fp);
 }
+void Del() //删除
+{
+    if(head == NULL){
+        printf("\n通讯录为空！\n");
+        return;
+    }
+    printf("————请选择删除方式————\n");
+    printf("1.按名字删除\t2.按号码删除—\n");
+    printf("3.清空通讯录\t4.取消      —\n");
+    printf("———————————————\n");
+    printf("请选择：");
+    int choice;
+    char str[20];
+    scanf("%d",&choice);
+    if(choice == 1){
+        printf("请输入联系人姓名：");
+        scanf("%s",str);
+    }else if(choice == 2){
+        printf("请输入联系人号码：");
+        scanf("%s",str);
+    }else if(choice == 3){
+        aNode *p = head,*p1;
+        while(p != NULL)
+        {
+            p1 = p;
+            p = p->next;
+            free(p1);
+        }
+        head = NULL;
+        printf("\n通讯录清除成功！\n");
+        return;
+    }else{return;}
+/******************删除操作******************/
+    aNode *p = head,*p1;
+    while((strcmp(p->name,str)!=0)&&(strcmp(p->phone,str)!=0))
+    {
+        p1 = p;
+        p = p->next;
+        if(p == NULL)
+        {
+            break;
+        }
+    }
+    if(p == head)//删除的是头结点
+    {
+        show(p);
+        printf("确认要删除吗？(Y/N)：");
+        char ch = getche();
+        printf("\n");
+        if(ch=='Y'||ch=='y')
+        {
+            head = head->next;
+            free(p);
+            printf("删除成功！\n");
+        }
+    }
+    else if(p == NULL)//未找到联系人
+    {
+        printf("未找到该联系人！\n");
+    }
+    else//找到联系人
+    {
+        show(p);
+        printf("确认要删除吗？(Y/N)：");
+        char ch = getche();
+        printf("\n");
+        if(ch=='Y'||ch=='y')
+        {
+            p1->next = p->next;
+            free(p);
+            printf("删除成功！\n");
+        }
+    }
+}
+void Display()//展示
+{
+    if(head == NULL)
+    {
+        printf("通讯录为空！\n");
+        return;
+    }
 
+<<<<<<< HEAD
 void Del() //删除
 {
     if(head == NULL){
@@ -494,4 +609,23 @@ void show(aNode *p)
     printf("—%-7s%-7s%-15s%-15s—\n",*m,*(m+1),*(m+2),*(m+3));
     printf("—%-7s%-7s%-15s%-15s—\n",p->name,p->sex,p->phone,p->address);
     printf("————————————————————————\n");
+=======
+    LiAddress p = head;
+    printf("———————联系人信息如下———————\n");
+    printf("—姓名\t性别\t电话号码\t地址\n");
+    while(p!=NULL)
+    {
+        printf("—%s\t%s\t%s\t%s\n",p->name,p->sex,p->phone,p->address);
+        p = p->next;
+    }
+    printf("—————————————————————\n");
+}
+
+void show(aNode *p)
+{
+    printf("——————该联系人信息如下———————\n");
+    printf("—姓名\t性别\t电话号码\t地址\n");
+    printf("—%s\t%s\t%s\t%s\n",p->name,p->sex,p->phone,p->address);
+    printf("—————————————————————\n");
+>>>>>>> 44799f580fb70af678aa754dd5cd50bf8c20883f
 }
